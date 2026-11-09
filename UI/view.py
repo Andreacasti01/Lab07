@@ -1,4 +1,6 @@
 import flet as ft
+from flet import MainAxisAlignment
+
 from UI.alert import AlertManager
 
 '''
@@ -37,9 +39,21 @@ class View:
 
         # --- Sezione 2: Filtraggio ---
         # TODO
+        self.drop_biblioteche = ft.Dropdown(
+            label="Biblioteche",
+            width=350,
+            options=[]
+        )
+        self.drop_genere = ft.Dropdown(
+            label="Genere",
+            width=200,
+            options=[]
+        )
 
         # Sezione 3: Libri
         # TODO
+        self.libri_filtrati = ft.ListView(controls=[], spacing=10)
+        self.controller.popola_dropdown()
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -54,9 +68,14 @@ class View:
 
             # Sezione 2: Filtraggio
             # TODO
+            ft.Row(controls=[self.drop_biblioteche, self.drop_genere],
+                   alignment=MainAxisAlignment.CENTER),
+            ft.Divider(),
 
             # Sezione 3: Libri
             # TODO
+            ft.Button(content="Mostra Libri", on_click=self.controller.filtra_libri),
+            self.libri_filtrati
         )
 
         self.page.scroll = "adaptive"
